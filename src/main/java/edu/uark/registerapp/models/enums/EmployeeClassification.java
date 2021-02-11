@@ -43,7 +43,7 @@ public enum EmployeeClassification {
 	}
 
 	private int classification;
-	private String displayLabel;
+	private String displayLabel; 
 
 	private static Map<Integer, EmployeeClassification> valueMap = null;
 
