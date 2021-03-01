@@ -4,9 +4,8 @@
 
 a.button {
 	text-decoration: none;
-}
-
-div {
-    text-align: center;
-    vertical-align: middle;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
 }

@@ -1,17 +1,24 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
-<link rel="stylesheet" type="text/css" href="/styles/master.css">
-<link rel="stylesheet" type="text/css" href="/styles/mainMenu.css">
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/mainMenu.css">
+</head>
 
-<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
-    <h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
-</div>
+<body>
+    <div>
+        <div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+            <h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
+        </div>
+        
+        <div>
+            <a href="button" class="button"> Start Transaction </a>
+            <a href="/productListing/" class="button"> View Products </a>
+            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
+            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
+            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
+        </div>
+    </div>
+</body>
 
-<div>
-    <a href="button" class="button"> Start Transaction </a>
-    <a href="/productListing/" class="button"> View Products </a>
-    <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
-    <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
-    <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
-</div>
 
