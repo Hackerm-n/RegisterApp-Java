@@ -1,0 +1,12 @@
+.hidden {
+    display:none;
+}
+
+a.button {
+	text-decoration: none;
+}
+
+div {
+    text-align: center;
+    vertical-align: middle;
+}

@@ -24,7 +24,7 @@ public class MainMenuController {
                 new ModelAndView(ViewNames.MAIN_MENU.getViewName());
         try {
 
-            modelAndView.addObject(ViewModelNames.CURRENT_RANK);
+            modelAndView.addObject("classification", 900);
 
         } catch (final Exception e) {
             modelAndView.addObject(
