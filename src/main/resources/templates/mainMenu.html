@@ -1,8 +1,8 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/mainMenu.css">
+    <link rel="stylesheet" type="text/css" href="/styles/master.css">
+    <link rel="stylesheet" type="text/css" href="/styles/mainMenu.css">
 </head>
 
 <body>
@@ -12,11 +12,14 @@
         </div>
         
         <div>
+            <h1> Main Menu </h1>
             <a href="button" class="button"> Start Transaction </a>
-            <a href="/productListing/" class="button"> View Products </a>
+            <a href="/" class="button"> View Products </a>
             <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
             <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
             <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
+
+            <img th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
         </div>
     </div>
 </body>

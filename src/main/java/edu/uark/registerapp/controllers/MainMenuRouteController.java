@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping(value = "/mainMenu")
-public class MainMenuController {
+public class MainMenuRouteController {
 
     // Properties
     @Autowired
