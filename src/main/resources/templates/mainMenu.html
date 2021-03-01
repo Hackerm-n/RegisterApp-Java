@@ -19,7 +19,7 @@
             <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
             <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
 
-            <img th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
+            <img id="logoutButton" th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
         </div>
     </div>
 </body>
