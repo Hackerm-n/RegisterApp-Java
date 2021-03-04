@@ -3,6 +3,7 @@ package edu.uark.registerapp.controllers;
 import java.util.Map;
 import java.util.UUID;
 
+import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,33 +38,33 @@ public class SignInRouteController {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
 
-        //Need to see task 5 for how to determine if employees exist given Map<String, String> parameter
-        boolean employeesExist = false;
-        if (employeesExist) {
-            //Serve up sign in view
-            return modelAndView;
-        } else {
+        try {
+            //check if an employee exists
+            this.ActiveEmployeeExistsQuery.execute();
+        }
+        catch (Exception e) {
             redirectToMainMenu();
         }
-        return null;
+
+        return modelAndView;
     }
 
 
-
     @RequestMapping(value = "/signInDoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void signIn(EmployeeSignIn employee, HttpServletRequest request) {
-        //Placeholder condition until I know how to verify
-        if (employee.getPassword() == employee.getPassword()) {
-            //Create an record in the activeuser table using:
-                //The current session ID
-                //The employee details associated with the provided credentials
-            redirectToMainMenu();
+    public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
+        ModelAndView modelAndView =
+                new ModelAndView(ViewNames.SIGN_IN.getViewName());
 
-
-        } else {
-            System.out.println("Your sign in was not successful.");
-            //serve up sign in view
+        try {
+            this.EmployeeSignInCommand.setSessionKey(request.getSession().getId());
+            this.EmployeeSignInCommand.setEmployeeSignIn(employee);
+            this.EmployeeSignInCommand.execute();
         }
+        catch (Exception e) {
+            System.out.println("Your sign in was not successful.");
+            return modelAndView;
+        }
+        return redirectToMainMenu();
     }
 
 }

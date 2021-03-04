@@ -2,6 +2,7 @@ package edu.uark.registerapp.controllers;
 
 import java.util.UUID;
 
+import edu.uark.registerapp.controllers.enums.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,22 +21,22 @@ public class SignInRestController {
 
     //sign in redirect
     @RequestMapping(value = "/redirect", method = RequestMethod.GET)
-    public ModelAndView redirectToSignInDoc() {
-        return new ModelAndView("redirect:" + "/signInDoc");
+    public ApiResponse redirectToSignInDoc() {
+        ApiResponse response = new ApiResponse();
+        response.setRedirectUrl(ViewNames.SIGN_IN.getRoute());
+        return response;
     }
 
     //double check and make sure that route is good with jan
     @RequestMapping(value = "/api/signOut", method = RequestMethod.DELETE)
     public ApiResponse removeUser(HttpServletRequest request) {
 
-        request.getRequestedSessionId();
-        //remove any record in the activeuser table associated with the current session ID
+        try{
+            //remove any record in the activeuser table associated with the current session ID
+            this.ActiveUserDeleteCommand.setSessionKey(request.getSession().getId());
+            this.ActiveUserDeleteCommand.execute();
+        } catch (Exception e) {}
 
-
-        //redirect to sign in view/document
-        redirectToSignInDoc();
-        ApiResponse response = new ApiResponse();
-        response.setRedirectUrl("/signInDoc");
-        return response;
+        return redirectToSignInDoc();
     }
 }
