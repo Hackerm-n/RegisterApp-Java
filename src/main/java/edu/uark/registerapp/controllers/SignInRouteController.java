@@ -27,6 +27,12 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class SignInRouteController {
 
+    @Autowired
+    private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
+
+    @Autowired
+    private EmployeeSignInCommand employeeSignInCommand;
+
     //Main menu redirect
     @RequestMapping(value = "/redirect", method = RequestMethod.GET)
     public ModelAndView redirectToMainMenu() {
@@ -40,7 +46,7 @@ public class SignInRouteController {
 
         try {
             //check if an employee exists
-            this.ActiveEmployeeExistsQuery.execute();
+            this.activeEmployeeExistsQuery.execute();
         }
         catch (Exception e) {
             redirectToMainMenu();
@@ -56,9 +62,9 @@ public class SignInRouteController {
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
 
         try {
-            this.EmployeeSignInCommand.setSessionKey(request.getSession().getId());
-            this.EmployeeSignInCommand.setEmployeeSignIn(employee);
-            this.EmployeeSignInCommand.execute();
+            this.employeeSignInCommand.setSessionKey(request.getSession().getId());
+            this.employeeSignInCommand.setEmployeeSignIn(employee);
+            this.employeeSignInCommand.execute();
         }
         catch (Exception e) {
             System.out.println("Your sign in was not successful.");

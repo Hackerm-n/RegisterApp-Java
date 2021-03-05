@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class SignInRestController {
 
+    @Autowired
+    private ActiveUserDeleteCommand activeUserDeleteCommand;
+
     //sign in redirect
     @RequestMapping(value = "/redirect", method = RequestMethod.GET)
     public ApiResponse redirectToSignInDoc() {
@@ -33,8 +36,8 @@ public class SignInRestController {
 
         try{
             //remove any record in the activeuser table associated with the current session ID
-            this.ActiveUserDeleteCommand.setSessionKey(request.getSession().getId());
-            this.ActiveUserDeleteCommand.execute();
+            this.activeUserDeleteCommand.setSessionKey(request.getSession().getId());
+            this.activeUserDeleteCommand.execute();
         } catch (Exception e) {}
 
         return redirectToSignInDoc();
