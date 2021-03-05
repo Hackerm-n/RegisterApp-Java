@@ -18,8 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import edu.uark.registerapp.commands.employees.helpers.ActiveEmployeeExistsQuery;
-import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
+import edu.uark.registerapp.commands.employees.helpers.*;
 
 import javax.servlet.http.HttpServletRequest;
 
