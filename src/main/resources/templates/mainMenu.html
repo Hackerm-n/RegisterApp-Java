@@ -13,11 +13,11 @@
         
         <div>
             <h1> Main Menu </h1>
-            <a href="button" class="button"> Start Transaction </a>
-            <a href="/" class="button"> View Products </a>
-            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
-            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
-            <a href="/productDetail/" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
+            <a href="" class="button" onclick="alert()"> Start Transaction </a>
+            <a href="/productListing/" class="button"> View Products </a>
+            <a href="/employeeDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
+            <a href="" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
+            <a href="" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
 
             <img id="logoutButton" th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
         </div>
