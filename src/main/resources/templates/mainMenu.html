@@ -1,33 +1,66 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="/styles/master.css">
-    <link rel="stylesheet" type="text/css" href="/styles/mainMenu.css">
+	<title>Register - Main Menu</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+	<link rel="stylesheet" type="text/css" href="/styles/mainMenu.css">
+
+	<script type="text/javascript" src="/scripts/master.js" defer></script>
+	<script type="text/javascript" src="/scripts/mainMenu.js" defer></script>
 </head>
 
 <body>
-    <div>
-        <div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
-            <h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
-        </div>
-        
-        <div>
-            <h1> Main Menu </h1>
-            <a href="" class="button" onclick="notYetImplemented()"> Start Transaction </a>
-            <a href="/productListing/" class="button"> View Products </a>
-            <a href="/employeeDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
-            <a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Sales Report </a>
-            <a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Cashier Report </a>
 
-            <img id="logoutButton" th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
-        </div>
-    </div>
+	<div class="header">
+		<h1 class="primary-message">Main Menu</h1>
+	</div>
 
-    <script>
-        function notYetImplemented() {
-            alert('Functionality has not yet been implemented.')
-        }
-    </script>
+	<div id="main" class="main">
+		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
+		</div>
+
+		<!-- TODO: Add the various action button elements -->
+		<a href="" class="button" onclick="notYetImplemented()"> Start Transaction </a>
+		<a href="/productListing/" class="button"> View Products </a>
+		<a href="/employeeDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
+		<a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Sales Report
+		</a>
+		<a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Cashier Report
+		</a>
+
+		<img id="logoutButton" th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
+
+	</div>
+
+	<script>
+		function notYetImplemented() {
+			alert('Functionality has not yet been implemented.')
+		}
+	</script>
+
+	<div class="hidden">
+		<input type="checkbox" id="isRefreshed" class="hidden">
+		<script type="text/javascript">
+			window.onunload = function () {
+				const isRefreshedElement = document.getElementById("isRefreshed");
+
+				if (!isRefreshedElement.checked) {
+					isRefreshedElement.checked = true;
+				} else {
+					isRefreshedElement.checked = false;
+					location.reload();
+				}
+			}
+		</script>
+	</div>
+
+	<div class="footer">
+		<img id="signOutImage" src="/images/logout.png" alt="Sign Out" class="footer" />
+	</div>
+
 </body>
 
-
+</html>
