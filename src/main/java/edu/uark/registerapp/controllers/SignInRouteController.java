@@ -33,7 +33,7 @@ public class SignInRouteController {
     private EmployeeSignInCommand employeeSignInCommand;
 
     //Main menu redirect
-    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+    @RequestMapping(value = "/redirectMainMenu", method = RequestMethod.GET)
     public ModelAndView redirectToMainMenu() {
         return new ModelAndView("redirect:" + "localhost:8080");
     }

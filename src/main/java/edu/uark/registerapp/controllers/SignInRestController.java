@@ -25,7 +25,7 @@ public class SignInRestController {
     private ActiveUserDeleteCommand activeUserDeleteCommand;
 
     //sign in redirect
-    @RequestMapping(value = "/redirect", method = RequestMethod.GET)
+    @RequestMapping(value = "/redirectSignIn", method = RequestMethod.GET)
     public ApiResponse redirectToSignInDoc() {
         ApiResponse response = new ApiResponse();
         response.setRedirectUrl(ViewNames.SIGN_IN.getRoute());
