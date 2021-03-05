@@ -46,9 +46,16 @@ public class SignInRouteController {
         try {
             //check if an employee exists
             this.activeEmployeeExistsQuery.execute();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             redirectToMainMenu();
+        }
+
+        if (allParams.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue())) {
+            modelAndView.addObject(
+                    QueryParameterNames.EMPLOYEE_ID.getValue(),
+                    allParams.get(QueryParameterNames.EMPLOYEE_ID.getValue()));
+        } else {
+            return modelAndView;
         }
 
         return modelAndView;
@@ -64,8 +71,7 @@ public class SignInRouteController {
             this.employeeSignInCommand.setSessionKey(request.getSession().getId());
             this.employeeSignInCommand.setEmployeeSignIn(employee);
             this.employeeSignInCommand.execute();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Your sign in was not successful.");
             return modelAndView;
         }
