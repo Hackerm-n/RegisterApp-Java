@@ -13,15 +13,21 @@
         
         <div>
             <h1> Main Menu </h1>
-            <a href="" class="button" onclick="alert()"> Start Transaction </a>
+            <a href="" class="button" onclick="notYetImplemented()"> Start Transaction </a>
             <a href="/productListing/" class="button"> View Products </a>
             <a href="/employeeDetail/" th:class="${classification < 499} ? hidden : 'button'"> Create Employee </a>
-            <a href="" th:class="${classification < 499} ? hidden : 'button'"> Sales Report </a>
-            <a href="" th:class="${classification < 499} ? hidden : 'button'"> Cashier Report </a>
+            <a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Sales Report </a>
+            <a href="" th:class="${classification < 499} ? hidden : 'button'" onclick="notYetImplemented()"> Cashier Report </a>
 
             <img id="logoutButton" th:src="@{/images/logout.png}" style="float: right; margin-right:5%">
         </div>
     </div>
+
+    <script>
+        function notYetImplemented() {
+            alert('Functionality has not yet been implemented.')
+        }
+    </script>
 </body>
 
 

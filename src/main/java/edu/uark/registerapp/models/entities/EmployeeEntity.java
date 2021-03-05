@@ -1,5 +1,7 @@
 package edu.uark.registerapp.models.entities;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -117,7 +119,7 @@ public class EmployeeEntity {
 		return this.createdOn;
 	}
 
-	public Employee synchronize(final Employee apiEmployee) {
+	public Employee synchronize(final Employee apiEmployee) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		this.setIsActive(apiEmployee.getIsActive());
 		this.setLastName(apiEmployee.getLastName());
 		this.setFirstName(apiEmployee.getFirstName());
@@ -149,7 +151,7 @@ public class EmployeeEntity {
 		this.firstName = StringUtils.EMPTY;
 	}
 
-	public EmployeeEntity(final Employee apiEmployee) {
+	public EmployeeEntity(final Employee apiEmployee) throws UnsupportedEncodingException, NoSuchAlgorithmException {
     	this.id = new UUID(0, 0);
 		this.isActive = apiEmployee.getIsActive();
 		this.lastName = apiEmployee.getLastName();
