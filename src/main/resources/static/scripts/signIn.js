@@ -17,7 +17,7 @@ function validateForm() {
 }
 
 function isNumeric(input) {
-    return !isNan(input);
+    return !isNaN(input);
 }
 
 function getEmployeeId() {
