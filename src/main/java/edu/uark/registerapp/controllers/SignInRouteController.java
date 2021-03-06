@@ -42,31 +42,34 @@ public class SignInRouteController {
     public ModelAndView showDocument(@RequestParam Map<String, String> allParams) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
-
         try {
             //check if an employee exists
             this.activeEmployeeExistsQuery.execute();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             redirectToMainMenu();
+        }
+
+        if (allParams.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue())) {
+            modelAndView.addObject(
+                    QueryParameterNames.EMPLOYEE_ID.getValue(),
+                    allParams.get(QueryParameterNames.EMPLOYEE_ID.getValue()));
+        } else {
+            return modelAndView;
         }
 
         return modelAndView;
     }
 
-
     @RequestMapping(value = "/signInDoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
-
         try {
             this.employeeSignInCommand.setSessionKey(request.getSession().getId());
             this.employeeSignInCommand.setEmployeeSignIn(employee);
             this.employeeSignInCommand.execute();
-        }
-        catch (Exception e) {
-            System.out.println("Your sign in was not successful.");
+        } catch (Exception e) {
+            System.out.println(e);
             return modelAndView;
         }
         return redirectToMainMenu();
