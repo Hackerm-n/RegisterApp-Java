@@ -62,7 +62,6 @@ public class SignInRouteController {
 
     @RequestMapping(value = "/signInDoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
-        System.out.println("Worked");
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
         try {

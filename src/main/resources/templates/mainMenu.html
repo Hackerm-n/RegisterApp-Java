@@ -23,11 +23,11 @@
 		</div>
 
 		<!-- TODO: Add the various action button elements -->
-		<a href="button" class="button"> Start Transaction </a>
+		<a href="button" class="button" onclick="notYetImplemented()"> Start Transaction </a>
 		<a href="/" class="button"> View Products </a>
 		<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden"> Create Employee </a>
-		<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden"> Sales Report </a>
-		<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden"> Cashier Report </a>
+		<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden" onclick="notYetImplemented()"> Sales Report </a>
+		<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden" onclick="notYetImplemented()"> Cashier Report </a>
 	</div>
 
 	<div class="hidden">
@@ -45,6 +45,12 @@
 			}
 		</script>
 	</div>
+
+	<script>
+		function notYetImplemented() {
+			alert('Functionality has not yet been implemented.')
+		}
+	</script>
 
 	<div class="footer">
 		<img id="signOutImage" src="/images/logout.png" alt="Sign Out" class="footer" />
