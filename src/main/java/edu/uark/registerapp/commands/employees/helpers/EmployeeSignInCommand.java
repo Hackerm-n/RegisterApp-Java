@@ -1,5 +1,6 @@
 package edu.uark.registerapp.commands.employees.helpers;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -35,8 +36,8 @@ public class EmployeeSignInCommand implements VoidCommandInterface {
 		}
 
         try {
-			if(!(Arrays.equals(EmployeeHelper.hashPassword(employeeSignIn.getPassword()), employeeEntity.get().getPassword()))) {
-			    throw new UnauthorizedException();
+			if(!(Arrays.equals(employeeSignIn.getPassword().getBytes(StandardCharsets.UTF_8), employeeEntity.get().getPassword()))) {
+				throw new UnauthorizedException();
 			}
 			else {
 			    Optional<ActiveUserEntity> activeUserEntity = this.activeUserRepository.findByEmployeeId(employeeEntity.get().getId());
