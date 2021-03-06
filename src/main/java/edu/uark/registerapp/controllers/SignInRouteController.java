@@ -35,7 +35,7 @@ public class SignInRouteController {
     //Main menu redirect
     @RequestMapping(value = "/redirectMainMenu", method = RequestMethod.GET)
     public ModelAndView redirectToMainMenu() {
-        return new ModelAndView("redirect:" + "localhost:8080");
+        return new ModelAndView(ViewNames.MAIN_MENU.getRoute());
     }
 
     @RequestMapping(value = "/signInDoc", method = RequestMethod.GET)
