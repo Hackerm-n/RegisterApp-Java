@@ -44,7 +44,6 @@ public class EmployeeSignInCommand implements VoidCommandInterface {
 			}
 
 			else {
-				System.out.println("Worked");
 			    Optional<ActiveUserEntity> activeUserEntity = this.activeUserRepository.findByEmployeeId(employeeEntity.get().getId());
                 if (activeUserEntity.isPresent()) {
                     activeUserEntity.get().setSessionKey(this.sessionKey);
