@@ -1,5 +1,6 @@
 package edu.uark.registerapp.controllers;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import edu.uark.registerapp.commands.employees.helpers.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -38,12 +40,12 @@ public class SignInRouteController {
 
     //Main menu redirect
     @RequestMapping(value = "/redirectMainMenu", method = RequestMethod.GET)
-    public ModelAndView redirectToMainMenu() {
-        return new ModelAndView(ViewNames.MAIN_MENU.getRoute());
+    public void redirectToMainMenu(HttpServletResponse http) throws IOException {
+        http.sendRedirect("https://hacker-men.herokuapp.com/mainMenu");
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView showDocument(@RequestParam Map<String, String> allParams) {
+    public ModelAndView showDocument(@RequestParam Map<String, String> allParams, HttpServletResponse http) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
         try {
@@ -60,7 +62,7 @@ public class SignInRouteController {
                 this.activeEmployeeExistsQuery.execute();
             }
         } catch (Exception e) {
-            redirectToMainMenu();
+            return modelAndView;
         }
 
         if (allParams.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue())) {
@@ -75,7 +77,7 @@ public class SignInRouteController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
+    public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
         try {
@@ -86,7 +88,13 @@ public class SignInRouteController {
             System.out.println(e);
             return modelAndView;
         }
-        return redirectToMainMenu();
+        try{
+            redirectToMainMenu(response);
+        }
+        catch (Exception i) {
+            return modelAndView;
+        }
+        return modelAndView;
     }
 
 }
