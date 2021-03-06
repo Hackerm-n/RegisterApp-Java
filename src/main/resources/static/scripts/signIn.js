@@ -7,14 +7,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 // Validate that the Employee ID is numeric and not blank
 // Validate that the password is not blank
 function validateForm() {
-    return true;
-//	employeeId = getEmployeeId();
-//	password = getPassword();
-//
-//	if((isNumeric(employeeId) && employeeId.length() > 0) && password.length() > 0) {
-//	    return true;
-//	}
-//	return false;
+	employeeId = getEmployeeId().value;
+	password = getPassword().value;
+	if((isNumeric(employeeId) && employeeId.length > 0) && password.length > 0) {
+	    return true;
+	}
+	return false;
 }
 
 function isNumeric(input) {
