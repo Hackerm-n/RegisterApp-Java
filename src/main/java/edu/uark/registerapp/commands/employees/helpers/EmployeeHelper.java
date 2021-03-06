@@ -1,6 +1,7 @@
 package edu.uark.registerapp.commands.employees.helpers;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -17,13 +18,7 @@ public class EmployeeHelper {
 
 	public static byte[] hashPassword(final String password)
 			throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		
-		byte[] data1 = password.getBytes("UTF-8");
-
-		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-		byte[] digest = messageDigest.digest(data1);
-
-		return digest;
+		return new byte[0];
 	}
 
 	private static final int EMPLOYEE_ID_MAXIMUM_LENGTH = 5;
