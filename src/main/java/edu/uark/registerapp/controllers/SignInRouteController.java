@@ -42,7 +42,6 @@ public class SignInRouteController {
     public ModelAndView showDocument(@RequestParam Map<String, String> allParams) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
-        System.out.println("Test2");
         try {
             //check if an employee exists
             this.activeEmployeeExistsQuery.execute();
@@ -65,7 +64,6 @@ public class SignInRouteController {
     public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
-        System.out.println("Test");
         try {
             this.employeeSignInCommand.setSessionKey(request.getSession().getId());
             this.employeeSignInCommand.setEmployeeSignIn(employee);
