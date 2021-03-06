@@ -18,6 +18,10 @@ public class ActiveEmployeeExistsQuery implements VoidCommandInterface {
 	    }
     }
 
+    public long employeeCount() {
+		return employeeRepository.count();
+	}
+
     @Autowired
     private EmployeeRepository employeeRepository;
 }

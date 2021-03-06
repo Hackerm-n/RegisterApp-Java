@@ -28,9 +28,9 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		@RequestParam final Map<String, String> queryParameters,
 		final HttpServletRequest request
 	) {
-
 		// TODO: Logic to determine if the user associated with the current session
 		//  is able to create an employee
+
 
 		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}

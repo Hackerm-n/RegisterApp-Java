@@ -19,7 +19,7 @@ import edu.uark.registerapp.models.api.Product;
 @RestController
 @RequestMapping(value = "/api/product")
 public class ProductRestController {
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/productListing", method = RequestMethod.POST)
 	public @ResponseBody ApiResponse createProduct(
 		@RequestBody final Product product
 	) {

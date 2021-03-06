@@ -4,8 +4,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
+import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
+import edu.uark.registerapp.models.repositories.EmployeeRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SignInRouteController {
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Autowired
     private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
@@ -38,13 +42,23 @@ public class SignInRouteController {
         return new ModelAndView(ViewNames.MAIN_MENU.getRoute());
     }
 
-    @RequestMapping(value = "/signInDoc", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView showDocument(@RequestParam Map<String, String> allParams) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
         try {
             //check if an employee exists
-            this.activeEmployeeExistsQuery.execute();
+            if(employeeRepository.count() == 0) {
+                try{
+                    return new ModelAndView(ViewModelNames.PLACE_HOLDER.getValue());
+                }
+                catch(Exception e) {
+                }
+
+            }
+            else {
+                this.activeEmployeeExistsQuery.execute();
+            }
         } catch (Exception e) {
             redirectToMainMenu();
         }
@@ -60,7 +74,7 @@ public class SignInRouteController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/signInDoc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView signIn(EmployeeSignIn employee, HttpServletRequest request) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
