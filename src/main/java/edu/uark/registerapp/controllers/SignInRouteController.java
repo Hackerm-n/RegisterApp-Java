@@ -40,7 +40,7 @@ public class SignInRouteController {
         try {
             this.activeEmployeeExistsQuery.execute();
         } catch (NotFoundException e) {
-            return new ModelAndView(ViewNames.PLACE_HOLDER.getRoute());
+            return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.PLACE_HOLDER.getRoute()));
             //TO DO: Change PLACE_HOLDER to EMPLOYEE_DETAIL
             //when employee detail page is done
         }
