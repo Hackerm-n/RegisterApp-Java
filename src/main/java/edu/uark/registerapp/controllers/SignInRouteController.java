@@ -36,18 +36,19 @@ public class SignInRouteController {
     public ModelAndView showDocument(@RequestParam Map<String, String> allParams) {
         ModelAndView modelAndView =
                 new ModelAndView(ViewNames.SIGN_IN.getViewName());
+
         try {
             this.activeEmployeeExistsQuery.execute();
-        } catch (Exception e) {
-            return modelAndView;
+        } catch (NotFoundException e) {
+            return new ModelAndView(ViewNames.PLACE_HOLDER.getRoute());
+            //TO DO: Change PLACE_HOLDER to EMPLOYEE_DETAIL
+            //when employee detail page is done
         }
 
         if (allParams.containsKey(QueryParameterNames.EMPLOYEE_ID.getValue())) {
             modelAndView.addObject(
                     QueryParameterNames.EMPLOYEE_ID.getValue(),
                     allParams.get(QueryParameterNames.EMPLOYEE_ID.getValue()));
-        } else {
-            return modelAndView;
         }
 
         return modelAndView;
