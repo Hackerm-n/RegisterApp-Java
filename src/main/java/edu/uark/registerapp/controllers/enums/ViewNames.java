@@ -4,7 +4,7 @@ public enum ViewNames {
 	SIGN_IN("signIn", "/"),
 	MAIN_MENU("mainMenu"),
 	PRODUCT_DETAIL("productDetail"),
-	PLACE_HOLDER("placeholder"),
+	PLACE_HOLDER("placeHolder"),
 	EMPLOYEE_DETAIL("employeeDetail"),
 	PRODUCT_LISTING("productListing");
 	
