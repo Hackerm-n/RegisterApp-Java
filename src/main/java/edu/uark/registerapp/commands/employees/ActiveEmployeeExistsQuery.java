@@ -1,4 +1,4 @@
-package edu.uark.registerapp.commands.employees.helpers;
+package edu.uark.registerapp.commands.employees;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

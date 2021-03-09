@@ -1,4 +1,4 @@
-package edu.uark.registerapp.commands.employees.helpers;
+package edu.uark.registerapp.commands.employees;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
