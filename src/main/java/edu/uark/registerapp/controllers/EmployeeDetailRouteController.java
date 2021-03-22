@@ -81,18 +81,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	}
 
 	// Helper methods
-	private boolean activeUserExists() {
-		ActiveEmployeeExistsQuery activeEmployeeExistsQuery = new ActiveEmployeeExistsQuery();
-		try
-		{
-			activeEmployeeExistsQuery.execute();
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		return true;
-	}
 
 	private boolean activeEmployeeExists() {
 		try
