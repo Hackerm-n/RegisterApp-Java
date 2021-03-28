@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.products.ProductQuery;
@@ -46,9 +47,16 @@ public class ProductDetailRouteController extends BaseRouteController{
 	}
 
 	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
-	public ModelAndView startWithProduct(@PathVariable final UUID productId) {
+	public ModelAndView startWithProduct(@PathVariable final UUID productId, final HttpServletRequest request) {
 		final ModelAndView modelAndView =
 			new ModelAndView(ViewNames.PRODUCT_DETAIL.getViewName());
+
+		final Optional<ActiveUserEntity> activeUserEntity =
+				this.getCurrentUser(request);
+
+		modelAndView.addObject(
+				ViewModelNames.IS_ELEVATED_USER.getValue(),
+				activeUserEntity.get().getClassification() >= 501);
 
 		try {
 			modelAndView.addObject(
@@ -68,21 +76,7 @@ public class ProductDetailRouteController extends BaseRouteController{
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/api/product/", method = RequestMethod.POST)
-	public boolean saveProduct(@PathVariable final Product product) {
-		try {
-			productCreateCommand.setApiProduct(product).execute();
-			return true;
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
-
 	// Properties
 	@Autowired
 	private ProductQuery productQuery;
-
-	@Autowired
-	private ProductCreateCommand productCreateCommand;
 }
