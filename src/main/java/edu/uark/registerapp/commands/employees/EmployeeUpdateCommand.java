@@ -21,7 +21,7 @@ import edu.uark.registerapp.models.repositories.EmployeeRepository;
 public class EmployeeUpdateCommand implements ResultCommandInterface<Employee> {
 	@Transactional
 	@Override
-	public Employee execute() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	public Employee execute() {
 		this.validateProperties();
 
 		final Optional<EmployeeEntity> employeeEntity =
@@ -31,7 +31,11 @@ public class EmployeeUpdateCommand implements ResultCommandInterface<Employee> {
 		}
 
 		// Synchronize any incoming changes for UPDATE to the database.
-		this.apiEmployee = employeeEntity.get().synchronize(this.apiEmployee);
+		try {
+            this.apiEmployee = employeeEntity.get().synchronize(this.apiEmployee);
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
 		// Write, via an UPDATE, any changes to the database.
 		this.employeeRepository.save(employeeEntity.get());
