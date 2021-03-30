@@ -1,5 +1,7 @@
 package edu.uark.registerapp.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.uark.registerapp.commands.activeUsers.ValidateActiveUserCommand;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeCreateCommand;
+import edu.uark.registerapp.commands.employees.EmployeeUpdateCommand;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
@@ -52,7 +56,7 @@ public class EmployeeRestController extends BaseRestController {
 		}
 
 		// TODO: Create an employee;
-		final Employee createdEmployee;
+		final Employee createdEmployee = employeeCreateCommand.setApiEmployee(employee).execute();
 
 		if (isInitialEmployee) {
 			createdEmployee
@@ -81,11 +85,14 @@ public class EmployeeRestController extends BaseRestController {
 		}
 
 		// TODO: Update the employee
-		return employee;
+		return employeeUpdateCommand.setApiEmployee(employee).setEmployeeId(employeeId).execute();
 	}
 	@Autowired
 	ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 
 	@Autowired
 	EmployeeCreateCommand employeeCreateCommand;
+
+	@Autowired
+	EmployeeUpdateCommand employeeUpdateCommand;
 }
