@@ -15,7 +15,7 @@
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
-		
+
 	<div id="main" class="main">
 		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
@@ -27,27 +27,69 @@
 					<tr class="hidden">
 						<td>ID:</td>
 						<td>
-							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" />
+							<input id="employeeId" type="hidden" th:value="${isEmpty} ? '' : ${id}" />
 						</td>
 					</tr>
 					<tr class="hidden">
 						<td>Manager ID:</td>
 						<td>
-							<input id="employeeManagerId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.managerId} : ''" />
+							<input id="employeeManagerId" type="hidden" th:value="${isEmpty} ? '' : ${managerId}" />
 						</td>
 					</tr>
-					<tr th:class="${employee.isEmpty} ? hidden : ''">
+					<tr th:class="${isInitialEmployee} ? hidden : ''">
 						<td class="label">Employee ID:</td>
 						<td>
-							<input id="employeeEmployeeId" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" disabled />
+							<input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update" disabled />
 						</td>
 					</tr>
-					<!-- TODO: Other employee inputs -->
+					<!-- Entirely new inputs -->
+					<tr class="hidden">
+						<td class="label">Employee Record ID:</td>
+						<td>
+							<input id="employeeRecordId" type="hidden">
+						</td>
+					</tr>
+					<tr>
+						<td class="label">First Name:</td>
+						<td>
+							<input id="firstName" type="text" th:value="${isEmpty} ? '' : ${firstName}" class="update" />
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Last Name:</td>
+						<td>
+							<input id="lastName" type="text" th:value="${isEmpty} ? '' : ${lastName}" class="update" />
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Password:</td>
+						<td>
+							<input id="password" type="password" value="" class="update" />
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Confirm Password:</td>
+						<td>
+							<input id="confirmPassword" type="password" value="" class="update" />
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Employee Type:</td>
+						<td>
+							<select id="employeeType" class="select">
+								<option value="cashier">Cashier</option>
+								<option value="shiftManager">Shift Manager</option>
+								<option value="generalManager">General Manager</option>
+							</select>
+						</td>
+					</tr>
+
 				</tbody>
 			</table>
 		</div>
 
-		<!-- TODO: An action element to initiate a save -->
+		<!-- Save button, Needs event handlers from task 10 I think -->
+		<button id="saveButton" type="button" class="action">Save</button>
 
 		<div id="employeeSavedAlertModal" class="modal animate-opacity-show">
 			<div class="modal-content">
@@ -61,8 +103,8 @@
 		</div>
 	</div>
 
-	<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-		<img id="signOutImage" src="/images/Sign-Out.png" alt="Sign Out" class="footer" />
+	<div class="footer" th:classappend="${isInitialEmployee} ? hidden : ''">
+		<img id="signOutImage" src="/images/signOut.png" alt="Sign Out" class="footer" />
 	</div>
 
 </body>
