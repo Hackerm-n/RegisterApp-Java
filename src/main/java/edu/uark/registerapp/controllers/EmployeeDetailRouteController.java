@@ -38,10 +38,10 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		
 		ModelAndView employeeDetailModelAndView =
 			this.setErrorMessageFromQueryString(
-				new ModelAndView(ViewNames.PLACE_HOLDER.getViewName()),
-				queryParameters); //TODO change placeholder to employee detail
+				new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName()),
+				queryParameters);
 
-		if(activeEmployeeExists() || (activeUserEntity.isPresent() && activeUserEntity.get().getClassification() >= 501)) {
+		if(!activeEmployeeExists() || (activeUserEntity.isPresent() && this.isElevatedUser(activeUserEntity.get())) ) {
 			employeeDetailModelAndView.addObject(
 					ViewModelNames.IS_ELEVATED_USER.getValue(),
 					true);
