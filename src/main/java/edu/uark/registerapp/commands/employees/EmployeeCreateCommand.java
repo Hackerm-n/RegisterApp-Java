@@ -29,6 +29,10 @@ public class EmployeeCreateCommand implements ResultCommandInterface<Employee> {
 		this.apiEmployee.setId(createdEmployeeEntity.getId()); 
 		this.apiEmployee.setCreatedOn(createdEmployeeEntity.getCreatedOn());
 
+		if(this.isInitial) {
+			this.apiEmployee.setClassification(701);
+		}
+		
 		return this.apiEmployee;
 	}
 
@@ -37,6 +41,7 @@ public class EmployeeCreateCommand implements ResultCommandInterface<Employee> {
 		if (StringUtils.isBlank(this.apiEmployee.getFirstName()) || StringUtils.isBlank(this.apiEmployee.getLastName()) || StringUtils.isBlank(this.apiEmployee.getPassword())) {
 			throw new UnprocessableEntityException("lookupcode");
 		}
+
 	}
 
 	@Transactional
@@ -70,6 +75,15 @@ public class EmployeeCreateCommand implements ResultCommandInterface<Employee> {
 	}
 	public EmployeeCreateCommand setApiEmployee(final Employee apiEmployee) {
 		this.apiEmployee = apiEmployee;
+		return this;
+	}
+
+	private boolean isInitial;
+	public boolean getIsInitial() {
+		return this.isInitial;
+	}
+	public EmployeeCreateCommand setIsInitial(final boolean isInitial) {
+		this.isInitial = isInitial;
 		return this;
 	}
 
