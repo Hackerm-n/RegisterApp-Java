@@ -41,7 +41,7 @@ public class EmployeeRestController extends BaseRestController {
 		ApiResponse canCreateEmployeeResponse;
 
 		try {
-			// TODO: Query if any active employees exist
+			// Query if any active employees exist
 			this.activeEmployeeExistsQuery.execute();
 
 			canCreateEmployeeResponse =
@@ -55,7 +55,7 @@ public class EmployeeRestController extends BaseRestController {
 			return canCreateEmployeeResponse;
 		}
 
-		// TODO: Create an employee;
+		// Create an employee;
 		final Employee createdEmployee = employeeCreateCommand.setApiEmployee(employee).setIsInitial(isInitialEmployee).execute();
 
 		if (isInitialEmployee) {
@@ -84,7 +84,7 @@ public class EmployeeRestController extends BaseRestController {
 			return elevatedUserResponse;
 		}
 
-		// TODO: Update the employee
+		// Update the employee
 		return employeeUpdateCommand.setApiEmployee(employee).setEmployeeId(employeeId).execute();
 	}
 	@Autowired
