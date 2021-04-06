@@ -1,111 +1,167 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-	<title>Register - Employee</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - Employee</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+  <link rel="stylesheet" type="text/css" href="/styles/master.css">
 
-	<script type="text/javascript" src="/scripts/master.js" defer></script>
-	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script>
+  <script type="text/javascript" src="/scripts/master.js" defer></script>
+  <script type="text/javascript" src="/scripts/employeeDetail.js" defer></script>
 </head>
 
-<body>
+<body onload="onLoad()">
 
-	<div class="header">
-		<h1 class="primary-message">Employee Detail</h1>
-	</div>
+  <div class="header">
+    <h1 class="primary-message">Employee Detail</h1>
+  </div>
 
-	<div id="main" class="main">
-		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
-			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
-		</div>
+  <div id="main" class="main">
+    <div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+      <h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
+    </div>
 
-		<div class="inputContent">
-			<table id="employeeDetails">
-				<tbody>
-					<tr class="hidden">
-						<td>ID:</td>
-						<td>
-							<input id="employeeId" type="hidden" th:value="${isEmpty} ? '' : ${id}" />
-						</td>
-					</tr>
-					<tr class="hidden">
-						<td>Manager ID:</td>
-						<td>
-							<input id="employeeManagerId" type="hidden" th:value="${isEmpty} ? '' : ${managerId}" />
-						</td>
-					</tr>
-					<tr th:class="${isInitialEmployee} ? hidden : ''">
-						<td class="label">Employee ID:</td>
-						<td>
-							<input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update" disabled />
-						</td>
-					</tr>
-					<!-- Entirely new inputs -->
-					<tr class="hidden">
-						<td class="label">Employee Record ID:</td>
-						<td>
-							<input id="employeeRecordId" type="hidden">
-						</td>
-					</tr>
-					<tr>
-						<td class="label">First Name:</td>
-						<td>
-							<input id="firstName" type="text" th:value="${isEmpty} ? '' : ${firstName}" class="update" />
-						</td>
-					</tr>
-					<tr>
-						<td class="label">Last Name:</td>
-						<td>
-							<input id="lastName" type="text" th:value="${isEmpty} ? '' : ${lastName}" class="update" />
-						</td>
-					</tr>
-					<tr>
-						<td class="label">Password:</td>
-						<td>
-							<input id="password" type="password" value="" class="update" />
-						</td>
-					</tr>
-					<tr>
-						<td class="label">Confirm Password:</td>
-						<td>
-							<input id="confirmPassword" type="password" value="" class="update" />
-						</td>
-					</tr>
-					<tr>
-						<td class="label">Employee Type:</td>
-						<td>
-							<select id="employeeType" class="select">
-								<option value=101>Cashier</option>
-								<option value=501>Shift Manager</option>
-								<option value=701>General Manager</option>
-							</select>
-						</td>
-					</tr>
+    <div class="inputContent">
+      <table id="employeeDetails">
+        <tbody>
+          <tr class="hidden">
+            <td>ID:</td>
+            <td>
+              <input id="employeeId" type="hidden" th:value="${isEmpty} ? '' : ${id}" />
+            </td>
+          </tr>
+          <tr class="hidden">
+            <td>Manager ID:</td>
+            <td>
+              <input id="employeeManagerId" type="hidden" th:value="${isEmpty} ? '' : ${managerId}" />
+            </td>
+          </tr>
+          <tr th:class="${isInitialEmployee} ? hidden : ''">
+            <td class="label">Employee ID:</td>
+            <td>
+              <input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update"
+                disabled />
+            </td>
+          </tr>
+          <!-- Entirely new inputs -->
+          <tr class="hidden">
+            <td class="label">Employee Record ID:</td>
+            <td>
+              <input id="employeeRecordId" type="hidden">
+            </td>
+          </tr>
+          <tr>
+            <td class="label">First Name:</td>
+            <td>
+              <input id="firstName" type="text" th:value="${isEmpty} ? '' : ${firstName}" class="update" />
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Last Name:</td>
+            <td>
+              <input id="lastName" type="text" th:value="${isEmpty} ? '' : ${lastName}" class="update" />
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Password:</td>
+            <td>
+              <input id="password" type="password" value="" class="update" />
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Confirm Password:</td>
+            <td>
+              <input id="confirmPassword" type="password" value="" class="update" />
+            </td>
+          </tr>
+          <tr>
+            <td class="label">Employee Type:</td>
+            <td>
+              <select id="employeeType" class="select">
+                <option value=101>Cashier</option>
+                <option value=501>Shift Manager</option>
+                <option value=701>General Manager</option>
+              </select>
+            </td>
+          </tr>
 
-				</tbody>
-			</table>
-		</div>
+        </tbody>
+      </table>
+    </div>
 
-		<!-- Save button, Needs event handlers from task 10 I think -->
-		<button id="saveButton" type="button" class="action">Save</button>
+    <!-- Save button, Needs event handlers from task 10 I think -->
+    <button id="saveButton" type="button" class="action" onclick="onSave()">Save</button>
 
-		<div id="employeeSavedAlertModal" class="modal animate-opacity-show">
-			<div class="modal-content">
-				<div class="container gray-blue">
-					<h1>
-						<span>Employee</span><br />
-						<span>Saved</span>
-					</h1>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="employeeSavedAlertModal" class="modal animate-opacity-show" display="none">
+      <div class="modal-content">
+        <div class="container gray-blue">
+          <h1>
+            <span>Employee</span><br />
+            <span>Saved</span>
+          </h1>
+        </div>
+      </div>
+    </div>
 
-	<div class="footer" th:classappend="${isInitialEmployee} ? hidden : ''">
-		<img id="signOutImage" src="/images/signOut.png" alt="Sign Out" class="footer" />
-	</div>
+    <div id="employeeNotSavedAlertModal" class="modal animate-opacity-show" display="none">
+      <div class="modal-content">
+        <div class="container gray-blue">
+          <h1>
+            <span>Employee</span><br />
+            <span>Not Saved</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" th:classappend="${isInitialEmployee} ? hidden : ''">
+    <img id="signOutImage" src="/images/signOut.png" alt="Sign Out" class="footer" />
+  </div>
+
+  <script>
+    function onLoad() {
+      document.getElementById('employeeSavedAlertModal').style.display = "none";
+      document.getElementById('employeeNotSavedAlertModal').style.display = "none";
+    }
+
+    function onSave() {
+      var firstName = document.getElementById("firstName");
+      var lastName = document.getElementById("lastName");
+      var password = document.getElementById("password");
+      var confirmPassword = document.getElementById("confirmPassword");
+      
+      if (firstName.value === '') {
+        firstName.focus();
+        saveFail();
+      } else if (lastName.value === '') {
+        lastName.focus();
+        saveFail();
+      } else if (password.value === '') {
+        password.focus();
+        saveFail();
+      } else if (confirmPassword.value !== password.value) {
+        confirmPassword.focus();
+        saveFail();
+      } else {
+        saveSuccess();
+      }
+    }
+
+    function saveSuccess() {
+      var employeeSaved = document.getElementById('employeeSavedAlertModal');
+      var employeeNotSaved = document.getElementById('employeeNotSavedAlertModal');
+      employeeSaved.style.display = "block";
+      employeeNotSaved.style.display = "none";
+    }
+
+    function saveFail() {
+      var employeeSaved = document.getElementById('employeeSavedAlertModal');
+      var employeeNotSaved = document.getElementById('employeeNotSavedAlertModal');
+      employeeSaved.style.display = "none";
+      employeeNotSaved.style.display = "block";
+    }
+  </script>
 
 </body>
 
