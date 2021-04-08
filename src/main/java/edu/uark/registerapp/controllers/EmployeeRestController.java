@@ -1,11 +1,14 @@
 package edu.uark.registerapp.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.uark.registerapp.commands.activeUsers.ValidateActiveUserCommand;
+import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeCreateCommand;
+import edu.uark.registerapp.commands.employees.EmployeeUpdateCommand;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.ApiResponse;
 import edu.uark.registerapp.models.api.Employee;
+import edu.uark.registerapp.models.entities.ActiveUserEntity;
 
 @RestController
 @RequestMapping(value = "/api/employee")
@@ -33,7 +41,8 @@ public class EmployeeRestController extends BaseRestController {
 		ApiResponse canCreateEmployeeResponse;
 
 		try {
-			// TODO: Query if any active employees exist
+			// Query if any active employees exist
+			this.activeEmployeeExistsQuery.execute();
 
 			canCreateEmployeeResponse =
 				this.redirectUserNotElevated(request, response);
@@ -46,8 +55,8 @@ public class EmployeeRestController extends BaseRestController {
 			return canCreateEmployeeResponse;
 		}
 
-		// TODO: Create an employee;
-		final Employee createdEmployee = new Employee();
+		// Create an employee;
+		final Employee createdEmployee = employeeCreateCommand.setApiEmployee(employee).setIsInitial(isInitialEmployee).execute();
 
 		if (isInitialEmployee) {
 			createdEmployee
@@ -75,7 +84,15 @@ public class EmployeeRestController extends BaseRestController {
 			return elevatedUserResponse;
 		}
 
-		// TODO: Update the employee
-		return employee;
+		// Update the employee
+		return employeeUpdateCommand.setApiEmployee(employee).setEmployeeId(employeeId).execute();
 	}
+	@Autowired
+	ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
+
+	@Autowired
+	EmployeeCreateCommand employeeCreateCommand;
+
+	@Autowired
+	EmployeeUpdateCommand employeeUpdateCommand;
 }
