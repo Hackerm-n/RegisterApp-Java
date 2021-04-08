@@ -4,13 +4,13 @@
   <title>Register - Employee</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="/styles/master.css">
+  <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
 
-  <script type="text/javascript" src="/scripts/master.js" defer></script>
-  <script type="text/javascript" src="/scripts/employeeDetail.js" defer></script>
+  <script type="text/javascript" src="../static/scripts/master.js" defer></script>
+  <script type="text/javascript" src="../static/scripts/employeeDetail.js" defer></script>
 </head>
 
-<body onload="onLoad()">
+<body>
 
   <div class="header">
     <h1 class="primary-message">Employee Detail</h1>
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Save button, Needs event handlers from task 10 I think -->
-    <button id="saveButton" type="button" class="action" onclick="onSave()">Save</button>
+    <button id="saveButton" type="button" class="action">Save</button>
 
     <div id="employeeSavedAlertModal" class="modal animate-opacity-show" display="none">
       <div class="modal-content">
@@ -116,52 +116,8 @@
   </div>
 
   <div class="footer" th:classappend="${isInitialEmployee} ? hidden : ''">
-    <img id="signOutImage" src="/images/signOut.png" alt="Sign Out" class="footer" />
+    <img id="signOutImage" src="../static/images/signOut.png" alt="Sign Out" class="footer" />
   </div>
-
-  <script>
-    function onLoad() {
-      document.getElementById('employeeSavedAlertModal').style.display = "none";
-      document.getElementById('employeeNotSavedAlertModal').style.display = "none";
-    }
-
-    function onSave() {
-      var firstName = document.getElementById("firstName");
-      var lastName = document.getElementById("lastName");
-      var password = document.getElementById("password");
-      var confirmPassword = document.getElementById("confirmPassword");
-      
-      if (firstName.value === '') {
-        firstName.focus();
-        saveFail();
-      } else if (lastName.value === '') {
-        lastName.focus();
-        saveFail();
-      } else if (password.value === '') {
-        password.focus();
-        saveFail();
-      } else if (confirmPassword.value !== password.value) {
-        confirmPassword.focus();
-        saveFail();
-      } else {
-        saveSuccess();
-      }
-    }
-
-    function saveSuccess() {
-      var employeeSaved = document.getElementById('employeeSavedAlertModal');
-      var employeeNotSaved = document.getElementById('employeeNotSavedAlertModal');
-      employeeSaved.style.display = "block";
-      employeeNotSaved.style.display = "none";
-    }
-
-    function saveFail() {
-      var employeeSaved = document.getElementById('employeeSavedAlertModal');
-      var employeeNotSaved = document.getElementById('employeeNotSavedAlertModal');
-      employeeSaved.style.display = "none";
-      employeeNotSaved.style.display = "block";
-    }
-  </script>
 
 </body>
 
