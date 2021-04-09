@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeQuery;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
@@ -68,16 +69,26 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 		final Optional<ActiveUserEntity> activeUserEntity =
 			this.getCurrentUser(request);
+		final ModelAndView modelAndView =
+			new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 
 		if (!activeUserEntity.isPresent()) {
 			return this.buildInvalidSessionResponse();
 		} else if (!this.isElevatedUser(activeUserEntity.get())) {
 			return this.buildNoPermissionsResponse();
 		}
-
+		try {
+			modelAndView.addObject(
+				ViewModelNames.EMPLOYEE_TYPES.getValue(),
+				this.employeeQuery.setEmployeeId(employeeId).execute());
+		} catch (final Exception e) {
+			modelAndView.addObject(
+				ViewModelNames.ERROR_MESSAGE.getValue(),
+				e.getMessage());
+		}
+		return modelAndView;
 		// TODO: Query the employee details using the request route parameter
 		// TODO: Serve up the page
-		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
 	// Helper methods
@@ -96,4 +107,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 	@Autowired
 	ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
+	@Autowired
+	EmployeeQuery employeeQuery;
 }
