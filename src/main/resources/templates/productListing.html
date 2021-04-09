@@ -21,7 +21,7 @@
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
 		</div>
 
-		<div class="productsWrapper">
+		<div th:class="${isElevatedUser} ? 'productActionsWrapper' : hidden">
 			<div>
 				<a href="/productDetail/" class="button">Create New</a>
 			</div>
