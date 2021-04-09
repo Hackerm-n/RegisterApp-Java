@@ -4,10 +4,10 @@
   <title>Register - Employee</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="../static/styles/master.css">
+  <link rel="stylesheet" type="text/css" href="../styles/master.css">
 
-  <script type="text/javascript" src="../static/scripts/master.js" defer></script>
-  <script type="text/javascript" src="../static/scripts/employeeDetail.js" defer></script>
+  <script type="text/javascript" src="../scripts/master.js" defer></script>
+  <script type="text/javascript" src="../scripts/employeeDetail.js" defer></script>
 </head>
 
 <body>
@@ -39,8 +39,7 @@
           <tr th:class="${isInitialEmployee} ? hidden : ''">
             <td class="label">Employee ID:</td>
             <td>
-              <input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update"
-                disabled />
+              <input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update"/>
             </td>
           </tr>
           <!-- Entirely new inputs -->
