@@ -63,7 +63,7 @@ function saveActionClick(event) {
 	} else {
 		ajaxPost(saveActionUrl, saveProductRequest, (callbackResponse) => {
 			saveActionElement.disabled = false;
-
+            console.log(callbackResponse)
 			if (isSuccessResponse(callbackResponse)) {
 				displayProductSavedAlertModal();
 
@@ -131,7 +131,7 @@ function deleteActionClick(event) {
 		deleteActionElement.disabled = false;
 
 		if (isSuccessResponse(callbackResponse)) {
-			window.location.replace("/");
+			window.location.replace("/productListing");
 		}
 	});
 };
