@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uark.registerapp.commands.employees.EmployeeQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,16 +58,15 @@ public class EmployeeRestController extends BaseRestController {
 
 		// Create an employee;
 		final Employee createdEmployee = employeeCreateCommand.setApiEmployee(employee).setIsInitial(isInitialEmployee).execute();
-
 		if (isInitialEmployee) {
-			createdEmployee
+			canCreateEmployeeResponse
 				.setRedirectUrl(
 					ViewNames.SIGN_IN.getRoute().concat(
 						this.buildInitialQueryParameter(
 							QueryParameterNames.EMPLOYEE_ID.getValue(),
-							createdEmployee.getEmployeeId())));
+								createdEmployee.getEmployeeId())));
+			return canCreateEmployeeResponse;
 		}
-
 		return createdEmployee.setIsInitialEmployee(isInitialEmployee);
 	}
 
@@ -77,7 +77,6 @@ public class EmployeeRestController extends BaseRestController {
 		final HttpServletRequest request,
 		final HttpServletResponse response
 	) {
-
 		final ApiResponse elevatedUserResponse =
 			this.redirectUserNotElevated(request, response);
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {

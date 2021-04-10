@@ -36,12 +36,11 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		
 		final Optional<ActiveUserEntity> activeUserEntity =
 			this.getCurrentUser(request);
-		
+
 		ModelAndView employeeDetailModelAndView =
 			this.setErrorMessageFromQueryString(
 				new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName()),
 				queryParameters);
-
 		if(!activeEmployeeExists() || (activeUserEntity.isPresent() && this.isElevatedUser(activeUserEntity.get())) ) {
 			employeeDetailModelAndView.addObject(
 					ViewModelNames.IS_ELEVATED_USER.getValue(),

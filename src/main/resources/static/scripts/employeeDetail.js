@@ -38,33 +38,31 @@ function saveSuccess() {
 	var employeeNotSaved = document.getElementById('employeeNotSavedAlertModal');
 	employeeSaved.style.display = "block";
 	employeeNotSaved.style.display = "none";
-	var employeeId = document.getElementById('employeeId').value;
-	var employeeIdIsDefined = (employeeId != null && employeeId.trim() !== '');
-	const saveActionUrl = ("/api/employee/"
-		+ (employeeIdIsDefined ? employeeId : ""));
-	const saveEmployeeRequest = {
-		id: employeeId,
-		firstName: document.getElementById("firstName"),
-		lastName: document.getElementById("lastName"),
-		password: document.getElementById("password"),
-		employeeType: document.getElementById("employeeType"),
-	};
+	var employeeId = document.getElementById("employeeEmployeeId");
 
-	if (employeeIdIsDefined) {
-		ajaxPut(saveActionUrl, saveEmployeeRequest, (callbackResponse) => {
-			document.getElementById('saveButton').disabled = false;
-			if (isSuccessResponse(callbackResponse)) {
-				displayEmployeeSavedAlertModal();
-			}
-		});
-	} else {
-		ajaxPost(saveActionUrl, saveEmployeeRequest, (callbackResponse) => {
-			document.getElementById('saveButton').disabled = false;
-			if (isSuccessResponse(callbackResponse)) {
-				displayEmployeeSavedAlertModal();
-			}
-		});
-	}
+	var employeeIdIsDefined = (employeeId != null || employeeId.trim() !== '' || employeeId != undefined);
+	const saveActionUrl = ("/api/employee/");
+	var saveEmployeeRequest =
+    {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        password: document.getElementById("password").value,
+        classification: document.getElementById("employeeType").value,
+    };
+
+    ajaxPost(saveActionUrl, saveEmployeeRequest, (callbackResponse) => {
+        document.getElementById('saveButton').disabled = false;
+        if (isSuccessResponse(callbackResponse)) {
+            displayEmployeeSavedAlertModal();
+            if(callbackResponse.data.employeeId !== undefined && callbackResponse.data.employeeId !== null) {
+                employeeId.value = callbackResponse.data.employeeId;
+            }
+            else {
+                window.location.replace(callbackResponse.data.redirectUrl);
+            }
+        }
+    });
+
 }
 
 function saveFail() {

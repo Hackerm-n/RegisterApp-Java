@@ -24,24 +24,24 @@
     <div class="inputContent">
       <table id="employeeDetails">
         <tbody>
-          <tr class="hidden">
-            <td>ID:</td>
-            <td>
-              <input id="employeeId" type="hidden" th:value="${isEmpty} ? '' : ${id}" />
-            </td>
-          </tr>
-          <tr class="hidden">
-            <td>Manager ID:</td>
-            <td>
-              <input id="employeeManagerId" type="hidden" th:value="${isEmpty} ? '' : ${managerId}" />
-            </td>
-          </tr>
-          <tr th:class="${isInitialEmployee} ? hidden : ''">
-            <td class="label">Employee ID:</td>
-            <td>
-              <input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update"/>
-            </td>
-          </tr>
+        <tr class="hidden">
+          <td>ID:</td>
+          <td>
+            <input id="employeeId" type="hidden" th:value="${isEmpty} ? '' : ${id}" />
+          </td>
+        </tr>
+        <tr class="hidden">
+          <td>Manager ID:</td>
+          <td>
+            <input id="employeeManagerId" type="hidden" th:value="${isEmpty} ? '' : ${managerId}" />
+          </td>
+        </tr>
+        <tr th:class="${isInitialEmployee} ? hidden : ''">
+          <td class="label">Employee ID:</td>
+          <td>
+            <input id="employeeEmployeeId" type="text" th:value="${isEmpty} ? '' : ${employeeId}" class="update" disabled />
+          </td>
+        </tr>
           <!-- Entirely new inputs -->
           <tr class="hidden">
             <td class="label">Employee Record ID:</td>

@@ -16,9 +16,15 @@ public class EmployeeHelper {
 				: employeeIdAsString);
 	}
 
-	public static byte[] hashPassword(final String password)
-			throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		return new byte[0];
+	public static byte[] hashPassword(final String password) {
+		try {
+			final MessageDigest messageDigest =
+					MessageDigest.getInstance("SHA-256");
+			messageDigest.update(password.getBytes());
+			return messageDigest.digest();
+		} catch (final NoSuchAlgorithmException e) {
+			return new byte[0];
+		}
 	}
 
 	private static final int EMPLOYEE_ID_MAXIMUM_LENGTH = 5;

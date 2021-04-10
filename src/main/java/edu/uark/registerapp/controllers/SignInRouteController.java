@@ -57,7 +57,7 @@ public class SignInRouteController {
         ModelAndView modelAndView =
                 new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.MAIN_MENU.getRoute()));
         try {
-            this.employeeSignInCommand.setSessionKey(request.getSession().getId());
+            this.employeeSignInCommand.setSessionId(request.getSession().getId());
             this.employeeSignInCommand.setEmployeeSignIn(employee);
             this.employeeSignInCommand.execute();
         } catch (Exception e) {

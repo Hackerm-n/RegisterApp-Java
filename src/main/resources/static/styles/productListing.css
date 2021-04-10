@@ -28,3 +28,7 @@
 a.button {
 	text-decoration: none;
 }
+
+.hidden {
+    display:none;
+}
