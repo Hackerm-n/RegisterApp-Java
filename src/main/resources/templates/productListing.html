@@ -21,7 +21,7 @@
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
 		</div>
 
-		<div th:class="${isElevatedUser} ? 'productActionsWrapper' : hidden">
+		<div class="productsWrapper">
 			<div>
 				<a href="/productDetail/" th:class="${isElevatedUser} ? 'button' : hidden">Create New</a>
 			</div>
@@ -54,7 +54,9 @@
 			</script>
 		</div>
 	</div>
-		
+	<div class="footer">
+		<img id="signOutImage" src="/images/logout.png" alt="Sign Out" class="footer" />
+	</div>
 </body>
 
 </html>
